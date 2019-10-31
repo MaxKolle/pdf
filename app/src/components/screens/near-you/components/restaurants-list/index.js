@@ -68,9 +68,10 @@ class RestaurantList extends Component<Props, {}> {
           renderItem={({ item }) => (
             <RestaurantItemList
               description={item.description}
-              distance={5}//{item.distance}
+              fromGoogle={item.fromGoogle}
+              distance={item.distance}
               isOpen={item.isOpen}
-              stars={4}//{item.stars}
+              stars={item.stars}
               name={item.name}
               id={item.id}
             />

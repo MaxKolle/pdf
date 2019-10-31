@@ -35,7 +35,7 @@ class NearYouContainer extends Component<Props, State> {
   };
 
   async componentDidMount() {
-    debugger;
+
     const persistedUserLocation = await getItemFromStorage(
       CONSTANTS.USER_LOCATION,
       [
@@ -48,7 +48,7 @@ class NearYouContainer extends Component<Props, State> {
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    debugger;
+
     const {indexDishesTypeSelected, restaurantsCached} = this.state;
     const {nearbyRestaurants} = nextProps;
     const {restaurants} = nearbyRestaurants.data;
@@ -63,7 +63,7 @@ class NearYouContainer extends Component<Props, State> {
   }
 
   handleGetUserLocation = (persistedUserLocation: Array<any>): void => {
-    debugger;
+
     let userLocation;
 
     if (typeof persistedUserLocation[0] === 'string') {
@@ -84,7 +84,7 @@ class NearYouContainer extends Component<Props, State> {
   };
 
   onRequestNearbyRestaurants = (): void => {
-    debugger;
+
     const {indexDishesTypeSelected, userLocation} = this.state;
     const {requestNearbyRestaurants} = this.props;
 
@@ -94,7 +94,7 @@ class NearYouContainer extends Component<Props, State> {
   };
 
   onDishesTypeChange = (indexDishesTypeSelected: number): void => {
-    debugger;
+
     const handleRestaurantsSelection = (): void => {
       const isRestaurantsCached = this.isRestaurantsCached();
 
@@ -114,7 +114,7 @@ class NearYouContainer extends Component<Props, State> {
   };
 
   onSelectMarker = (indexMarkerSelected: number): void => {
-    debugger;
+
     console.log("onSelectMarker function");
     const {indexRestaurantSelected} = this.state;
 
@@ -129,7 +129,7 @@ class NearYouContainer extends Component<Props, State> {
   };
 
   turnOffMoveRestaurantList = (): void => {
-    debugger;
+
     console.log("turnOffMoveRestaurantList function");
     this.setState({
       shouldMoveRestaurantList: false,
@@ -137,7 +137,7 @@ class NearYouContainer extends Component<Props, State> {
   };
 
   getnearbyRestaurants = (): Array<Object> => {
-    debugger;
+
 
     const {nearbyRestaurants} = this.props;
     const {loading, data} = nearbyRestaurants;
@@ -154,14 +154,14 @@ class NearYouContainer extends Component<Props, State> {
   };
 
   getRestaurantsFromCache = (): Object => {
-    debugger;
+
     const {indexDishesTypeSelected, restaurantsCached} = this.state;
 
     return restaurantsCached[indexDishesTypeSelected];
   };
 
   getRestaurantsList = (): mixed => {
-    debugger;
+
     const isRestaurantsCached = this.isRestaurantsCached();
 
     const restaurants = isRestaurantsCached
@@ -172,7 +172,7 @@ class NearYouContainer extends Component<Props, State> {
   };
 
   isRestaurantsCached = (): boolean => {
-    debugger;
+
     const {indexDishesTypeSelected, restaurantsCached} = this.state;
 
     const isCached = restaurantsCached[indexDishesTypeSelected];
@@ -191,7 +191,7 @@ class NearYouContainer extends Component<Props, State> {
     const {error} = nearbyRestaurants;
 
     const restaurants = this.getRestaurantsList();
-    debugger;
+
     return (
       <NearYouComponent
         turnOffMoveRestaurantList={this.turnOffMoveRestaurantList}

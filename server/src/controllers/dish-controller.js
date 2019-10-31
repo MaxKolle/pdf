@@ -5,22 +5,23 @@ const ReviewDAO = require("../dao/review-dao");
 const DishDAO = require("../dao/dish-dao");
 
 const shuffleArray = require("../utils/shuffle-array");
+const log = require("../utils/log");
 
-const MAX_DISHES_HOME_SECTION = 20;
+const MAX_DISHES_HOME_SECTION = 10;
 
 // get ramdom restaurant per dishesTypes
 const _getRandomRestaurant = async dishesTypes => {
-	
+
   const allRestaurants = await RestaurantDAO.readByDishType(dishesTypes);
   const restaurantShuffled = shuffleArray(allRestaurants)[0];
   const restaurant = restaurantShuffled;
-  
+
   return restaurant;
 };
 
 // get ramdom reviews per numberOfReviews
 const _getRandomReviews = async numberOfReviews => {
-	
+
   const allReviews = await ReviewDAO.readAll();
   const reviewsShuffled = shuffleArray(allReviews);
   const reviews = reviewsShuffled.slice(0, numberOfReviews);
@@ -28,10 +29,10 @@ const _getRandomReviews = async numberOfReviews => {
   return reviews;
 };
 
-// CREATE Dish in Database object 
+// CREATE Dish in Database object
 exports.create = async (req, res, next) => {
 
-  console.log("Dish/create --- Create dish with: " + req.body.toString() + "Data");
+  log("Dish/create --- Create dish with: " + JSON.stringify(req.body) + "Data");
 
   try {
     const { id } = await DishDAO.create(req.body);
@@ -49,7 +50,7 @@ exports.create = async (req, res, next) => {
 // CREATE in Batch - Dish in Database object
 exports.createInBatch = async (req, res, next) => {
 
-  console.log("Dish/createInBatch --- Create dish in Batch with: " + req.body.toString() + "Data");
+  log("Dish/createInBatch --- Create dish in Batch with: " + JSON.stringify(req.body) + "Data");
 
   try {
     await DishDAO.createInBatch(req.body);
@@ -62,10 +63,10 @@ exports.createInBatch = async (req, res, next) => {
   }
 };
 
-// GET 20 (MAX_DISHES_HOME_SECTION) shuffled dishes 
+// GET 10 (MAX_DISHES_HOME_SECTION) shuffled dishes
 exports.readAll = async (req, res, next) => {
 
-  console.log("Dish/readAll --- Getting 20 shuffle dishes");
+  log("Dish/readAll --- Getting 10 shuffle dishes");
 
   try {
     const allDishes = await DishDAO.readAll();
@@ -85,7 +86,7 @@ exports.readAll = async (req, res, next) => {
 // GET dish, restaurant & reviews datas of a dish by id
 exports.readById = async (req, res, next) => {
 
-  console.log("Dish/readById/" + req.params.id + " --- Getting dish, restaurant & reviews data ");
+  log("Dish/readById/" + req.params.id + " --- Getting dish, restaurant & reviews data ");
 
   try {
     const { id } = req.params;
@@ -122,7 +123,7 @@ exports.readById = async (req, res, next) => {
 // UPDATE a dish datas by id
 exports.update = async (req, res, next) => {
 
-  console.log("Dish/update/" + req.params.id + " --- Update dish with: " + req.body.toString() + "Data and Return dish Updated");
+  log("Dish/update/" + req.params.id + " --- Update dish with: " + JSON.stringify(req.body) + "Data and Return dish Updated");
 
   try {
     const { id } = req.params;
@@ -154,7 +155,7 @@ exports.update = async (req, res, next) => {
 // DELETE a dish by id
 exports.delete = async (req, res, next) => {
 
-  console.log("Dish/delete/" + req.params.id + " --- Delete dish");
+  log("Dish/delete/" + req.params.id + " --- Delete dish");
 
   try {
     const { id } = req.params;

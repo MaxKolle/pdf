@@ -1,4 +1,4 @@
-const debug = require("debug")("bon-appetit-api:restaurant-controller");
+const debug = require("debug")("kame-tcha-api:restaurant-controller");
 
 const RestaurantDAO = require("../dao/restaurant-dao");
 const ReviewDAO = require("../dao/review-dao");
@@ -6,6 +6,7 @@ const DishesDAO = require("../dao/dish-dao");
 
 const calculateDistanceCoordinates = require("../utils/calculate-distance-coordinates");
 const shuffleArray = require("../utils/shuffle-array");
+const log = require("../utils/log");
 
 const MAX_NEARBY_RESTAURANTS = 10;
 const MAX_DISHES_MENU = 10;
@@ -150,10 +151,11 @@ const _handleDistanceBetweenUserAndRestaurant = (
 
   return distance.toFixed(1);
 };
+// ==================================================================================================================
 
 exports.create = async (req, res, next) => {
 
-  console.log("Restaurant/create --- Create restaurant with: " + req.body.toString() + "Data");
+  log("Restaurant/create --- Create restaurant with: " + JSON.stringify(req.body) + "Data");
 
   try {
     const { id } = await RestaurantDAO.create(req.body);
@@ -173,7 +175,7 @@ exports.create = async (req, res, next) => {
 
 exports.createInBatch = async (req, res, next) => {
 
-  console.log("Restaurant/createInBatch --- Create restaurant in Batch with: " + req.body.toString() + "Data");
+  log("Restaurant/createInBatch --- Create restaurant in Batch with: " + JSON.stringify(req.body) + "Data");
 
   try {
     await RestaurantDAO.createInBatch(req.body);
@@ -192,7 +194,7 @@ exports.createInBatch = async (req, res, next) => {
 
 exports.readAll = async (req, res, next) => {
 
-  console.log("Restaurant/readAll --- Getting all restaurants");
+  log("Restaurant/readAll --- Getting all restaurants");
 
   try {
     const restaurants = await RestaurantDAO.readAll();
@@ -209,10 +211,14 @@ exports.readAll = async (req, res, next) => {
   }
 };
 
-// GET restaurant with distance & isOpen status and menu by restaurantID
+// GET restaurant with distance from user & isOpen status and menu by restaurantID
 exports.readById = async (req, res, next) => {
 
-  console.log("Restaurant/readById/" + req.params.id + " --- Getting restaurant with distance & isOpen status and menu data with " + JSON.stringify(req.headers) + "location data");
+  const userLocation = {
+    latitude: req.headers.userlatitude,
+    longitude: req.headers.userlongitude
+  };
+  log("Restaurant/readById/" + req.params.id + " --- Getting restaurant with distance & isOpen status and menu data with " + JSON.stringify(userLocation) + "location data");
 
   try {
     const { headers, params } = req;
@@ -253,7 +259,7 @@ exports.readById = async (req, res, next) => {
 
 exports.update = async (req, res, next) => {
 
-  console.log("Restaurant/update/" + req.params.id + " --- Update restaurant with: " + req.body.toString() + "Data and Return restaurant Updated");
+  log("Restaurant/update/" + req.params.id + " --- Update restaurant with: " + JSON.stringify(req.body) + "Data and Return restaurant Updated");
 
   try {
     const { id } = req.params;
@@ -286,7 +292,7 @@ exports.update = async (req, res, next) => {
 
 exports.delete = async (req, res, next) => {
 
-  console.log("Restaurant/delete/" + req.params.id + " --- Delete restaurant");
+  log("Restaurant/delete/" + req.params.id + " --- Delete restaurant");
 
   try {
     const { id } = req.params;
@@ -315,15 +321,22 @@ exports.delete = async (req, res, next) => {
 exports.getNearbyRestaurants = async (req, res, next) => {
 
   debugger;
-  console.log("Restaurant/getNearbyRestaurants --- Getting 10 filtered restaurants based on " + req.query.toString() + " and " + req.headers.toString() + " params");
+  log(JSON.stringify(req.query) + " " + JSON.stringify(req.headers));
+
+  const userLocation = {
+    latitude: req.headers.userlatitude,
+    longitude: req.headers.userlongitude
+  };
+
+  const dishType = {
+    dishType: req.query
+  };
+
+  log("Restaurant/getNearbyRestaurants --- Getting 10 filtered restaurants based on dishType " + JSON.stringify(dishType) + " and" + JSON.stringify(userLocation) + " Location params");
 
   try {
     const { headers, query } = req;
-    const { dishesType } = query;
-
-    // Get
-    console.log("longitude: " + JSON.stringify(headers.userlongitude) + "lattitude: " + JSON.stringify(headers.userlatitude));
-    console.log("dishType: " + JSON.stringify(query));
+    const { dishType } = query;
 
     if (!headers.userlatitude || !headers.userlongitude) {
       return res.status(400).json({
@@ -331,11 +344,13 @@ exports.getNearbyRestaurants = async (req, res, next) => {
       });
     }
 
+    log(JSON.stringify(dishType));
+
     const restaurantsFilteredByDishTypes = await RestaurantDAO.filterBasedDishesTypes(
-      [query]
+      [dishType]
     );
 
-    console.log("restaurantsFilteredByDishTypes: " + JSON.stringify(restaurantsFilteredByDishTypes));
+    //log("restaurantsFilteredByDishTypes: " + JSON.stringify(restaurantsFilteredByDishTypes));
 
     const restaurants = restaurantsFilteredByDishTypes
       .map(item => ({
@@ -355,7 +370,7 @@ exports.getNearbyRestaurants = async (req, res, next) => {
         return first.distance - second.distance;
       });
 
-    console.log("restaurants: " + JSON.stringify(restaurants));
+    log("restaurants: " + JSON.stringify(restaurants));
 
     return res.status(200).json({
       restaurants: restaurants.slice(0, MAX_NEARBY_RESTAURANTS)
@@ -373,7 +388,18 @@ exports.getNearbyRestaurants = async (req, res, next) => {
 // GET restaurants FILTERED BY dishesTypes, maxDistance, userLocation
 exports.filter = async (req, res, next) => {
 
-  console.log("Restaurant/filter --- Getting filtered restaurants based on " + req.query.toString() + " and " + req.headers.toString() + " params");
+
+  const userLocation = {
+    latitude: req.headers.userlatitude,
+    longitude: req.headers.userlongitude
+  };
+
+  const query = {
+    dishesType: req.query.dishesTypes,
+    maxDistance: req.query.maxDistance
+  };
+
+  log("Restaurant/filter --- Getting filtered restaurants based on dishtypes & distance" + JSON.stringify(query) + " and " + JSON.stringify(userLocation) + " Location params");
 
   try {
     const { query, headers } = req;

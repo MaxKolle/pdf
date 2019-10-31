@@ -11,7 +11,7 @@ const initialState = Immutable({
 });
 
 const dish = (state = initialState, {type, payload}) => {
-  debugger;
+  //debugger;
   switch (type) {
     case Types.GET_ALL_DISHES_REQUEST:
       return {

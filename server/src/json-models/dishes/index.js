@@ -6,7 +6,6 @@ const pasta = require("./pasta/data.json");
 const pizza = require("./pizza/data.json");
 const salad = require("./salad/data.json");
 const seafood = require("./seafood/data.json");
-const japanese = require("./japanese/data.json");
 
 const dishes = [
   ...barbecue,
@@ -16,8 +15,7 @@ const dishes = [
   ...pasta,
   ...pizza,
   ...salad,
-  ...seafood,
-  ...japanese
+  ...seafood
 ];
 
 module.exports = dishes;

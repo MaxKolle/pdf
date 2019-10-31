@@ -68,7 +68,6 @@ exports.readByDishType = async dishType => {
 };
 
 exports.filterBasedDishesTypes = async types => {
-  console.log("types: " + types);
   try {
     return await Restaurant.aggregate()
       .unwind("$dishesTypes")

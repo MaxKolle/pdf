@@ -4,10 +4,12 @@ const shuffleArray = require("../utils/shuffle-array");
 const RestaurantDAO = require("../dao/restaurant-dao");
 const EventDAO = require("../dao/event-dao");
 
-// CREATE Event in Database object 
+const log = require("../utils/log");
+
+// CREATE Event in Database object
 exports.create = async (req, res, next) => {
 
-  console.log("Event/create --- Create event with: " + req.body.toString() + "Data");
+  log("Event/create --- Create event with: " + JSON.stringify(req.body) + "Data");
 
   try {
     const { id } = await EventDAO.create(req.body);
@@ -25,7 +27,7 @@ exports.create = async (req, res, next) => {
 // CREATE in Batch - Event in Database object
 exports.createInBatch = async (req, res, next) => {
 
-  console.log("Event/createInBatch --- Create event in Batch with: " + req.body.toString() + "Data");
+  log("Event/createInBatch --- Create event in Batch with: " + JSON.stringify(req.body) + "Data");
 
   try {
     await EventDAO.createInBatch(req.body);
@@ -43,7 +45,7 @@ exports.createInBatch = async (req, res, next) => {
 // GET all shuffled events
 exports.readAll = async (req, res, next) => {
 
-  console.log("Event/readAll --- Getting all shuffle events");
+  log("Event/readAll --- Getting all shuffle events");
 
   try {
     const allEvents = await EventDAO.readAll();
@@ -63,7 +65,7 @@ exports.readAll = async (req, res, next) => {
 // GET restaurants & event datas of an event by id of restaurantsParticipating
 exports.readById = async (req, res, next) => {
 
-  console.log("Event/readById/" + req.params.id + " --- Getting restaurants & event data");
+  log("Event/readById/" + req.params.id + " --- Getting restaurants & event data");
 
   try {
     const { id } = req.params;
@@ -107,7 +109,7 @@ exports.readById = async (req, res, next) => {
 // UPDATE a event datas by id
 exports.update = async (req, res, nex) => {
 
-  console.log("Event/update/" + req.params.id + " --- Update event with: " + req.body.toString() + "Data and Return event Updated");
+  log("Event/update/" + req.params.id + " --- Update event with: " + JSON.stringify(req.body) + "Data and Return event Updated");
 
   try {
     const { id } = req.params;
@@ -139,7 +141,7 @@ exports.update = async (req, res, nex) => {
 // DELETE a event by id
 exports.delete = async (req, res, next) => {
 
-  console.log("Event/delete/" + req.params.id + " --- Delete event");
+  log("Event/delete/" + req.params.id + " --- Delete event");
 
   try {
     const { id } = req.params;

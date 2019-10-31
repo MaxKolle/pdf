@@ -8,6 +8,8 @@ const reviews = require("../json-models/reviews.json");
 const events = require("../json-models/events.json");
 const dishes = require("../json-models/dishes");
 
+const log = require("../utils/log");
+
 // POPULATE Database Objects or Tables (Restaurants, Reviews, Events & Dishes)
 exports.populate = async (req, res, next) => {
   try {
@@ -16,7 +18,7 @@ exports.populate = async (req, res, next) => {
     await DishDAO.createInBatch(dishes);
     await EventDAO.createInBatch(events);
 
-    console.log("Database Filled and Ready to Use!");
+    log("Database Filled and Ready to Use!");
 
     return res.status(201).json({
       message: "Database Filled and Ready to Use!"
@@ -48,7 +50,7 @@ exports.clear = async (req, res, next) => {
     await clearDataset(DishDAO);
     await clearDataset(EventDAO);
 
-    console.log("Database Cleared");
+    log("Database Cleared");
 
     return res.status(201).json({
       message: "Database Cleared!"

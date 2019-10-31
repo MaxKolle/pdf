@@ -1,8 +1,10 @@
 const ReviewDAO = require("../dao/review-dao");
 
+const log = require("../utils/log");
+
 exports.create = async (req, res, next) => {
 
-  console.log("Review/create --- Create review with: " + req.body.toString() + "Data");
+  log("Review/create --- Create review with: " + JSON.stringify(req.body) + "Data");
 
   try {
     const { id } = await ReviewDAO.create(req.body);
@@ -19,7 +21,7 @@ exports.create = async (req, res, next) => {
 
 exports.createInBatch = async (req, res, next) => {
 
-  console.log("Review/createInBatch --- Create review in Batch with: " + req.body.toString() + "Data");
+  log("Review/createInBatch --- Create review in Batch with: " + JSON.stringify(req.body) + "Data");
 
   try {
     await ReviewDAO.createInBatch(req.body);
@@ -34,7 +36,7 @@ exports.createInBatch = async (req, res, next) => {
 
 exports.readAll = async (req, res, next) => {
 
-  console.log("Review/readAll --- Getting all reviews");
+  log("Review/readAll --- Getting all reviews");
 
   try {
     const reviews = await ReviewDAO.readAll();
@@ -51,7 +53,7 @@ exports.readAll = async (req, res, next) => {
 
 exports.readById = async (req, res, next) => {
 
-  console.log("Review/readById/" + req.params.id + " --- Getting review data ");
+  log("Review/readById/" + req.params.id + " --- Getting review data ");
 
   try {
     const { id } = req.params;
@@ -76,7 +78,7 @@ exports.readById = async (req, res, next) => {
 
 exports.update = async (req, res, next) => {
 
-  console.log("Review/update/" + req.params.id + " --- Update review with: " + req.body + "Data and Return review Updated");
+  log("Review/update/" + req.params.id + " --- Update review with: " + JSON.stringify(req.body) + "Data and Return review Updated");
 
   try {
     const { id } = req.params;
@@ -101,7 +103,7 @@ exports.update = async (req, res, next) => {
 
 exports.delete = async (req, res, next) => {
 
-  console.log("Review/delete/" + req.params.id + " --- Delete review");
+  log("Review/delete/" + req.params.id + " --- Delete review");
 
   try {
     const { id } = req.params;

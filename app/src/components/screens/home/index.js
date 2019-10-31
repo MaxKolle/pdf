@@ -17,7 +17,7 @@ import { Types } from '../../../utils/alert';
 import Loading from '../../../components/common/Loading';
 
 import YouMightLikeSection from './components/you-might-like/home-section';
-import InYourCitySection from './components/in-your-city/home-section';
+import InYourCitySection from './components/in-your-area/home-section';
 import PopularSection from './components/popular/home-section';
 
 import Section from './components/Section';
@@ -121,7 +121,7 @@ class Home extends Component<Props, State> {
           {hasInYourCityEvents && (
               <Section
                   nextRoute={ROUTE_NAMES.SEE_ALL_EVENTS}
-                  title="In Your City"
+                  title="In Your City Events"
               >
                 <InYourCitySection
                     events={inYourCityEvents}
@@ -131,7 +131,7 @@ class Home extends Component<Props, State> {
           {hasYouMightLikeDishes && (
               <Section
                   nextRoute={ROUTE_NAMES.YOU_MIGHT_LIKE_SEE_ALL}
-                  title="You Might Like"
+                  title="You Might Like Dishes"
               >
                 <YouMightLikeSection
                     dishes={youMightLikeDishes}
@@ -141,7 +141,7 @@ class Home extends Component<Props, State> {
           {hasPopularDishes && (
               <Section
                   nextRoute={ROUTE_NAMES.POPULAR_SEE_ALL}
-                  title="Popular"
+                  title="Popular Dishes"
               >
                 <PopularSection
                     dishes={popularDishes}

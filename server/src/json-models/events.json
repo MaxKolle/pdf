@@ -15,8 +15,8 @@
     "thumbnailImageURL": "http://10.0.0.6:3000/img/events/thumbnail/nippon.png",
     "smallImageURL": "http://10.0.0.6:3000/img/events/small/nippon.png",
     "title": "Nippon Day",
-    "description": "The most exotic dishes from the Japanese cuisine will be here on this weekend.",
-    "dishesTypes": ["Japanese"],
+    "description": "The most exotic dishes from the pasta cuisine will be here on this weekend.",
+    "dishesTypes": ["Pasta"],
     "restaurantsParticipating": 12
   },
   {

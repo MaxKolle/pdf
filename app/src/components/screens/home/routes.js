@@ -10,7 +10,7 @@ import RestaurantAddressMap from '../../../components/common/restaurant-detail/c
 import RestaurantDetail from '../../../components/common/restaurant-detail';
 import YouMightLikeSeeAll from './components/you-might-like/see-all';
 import DisheDetail from '../../../components/common/dish-detail';
-import AllEvents from './components/in-your-city/see-all';
+import AllEvents from './components/in-your-area/see-all';
 import PopularSeeAll from './components/popular/see-all';
 import EventDetails from './components/event-details';
 import Home from './index';
@@ -40,17 +40,17 @@ const RootStack = createStackNavigator(
 
     [ROUTE_NAMES.SEE_ALL_EVENTS]: {
       screen: AllEvents,
-      navigationOptions: ({ navigation }) => setDefaultHeaderLayout(navigation, 'In Your City'),
+      navigationOptions: ({ navigation }) => setDefaultHeaderLayout(navigation, 'In Your City Events'),
     },
 
     [ROUTE_NAMES.YOU_MIGHT_LIKE_SEE_ALL]: {
       screen: YouMightLikeSeeAll,
-      navigationOptions: ({ navigation }) => setDefaultHeaderLayout(navigation, 'You Might Like'),
+      navigationOptions: ({ navigation }) => setDefaultHeaderLayout(navigation, 'Dishes You Might Like'),
     },
 
     [ROUTE_NAMES.POPULAR_SEE_ALL]: {
       screen: PopularSeeAll,
-      navigationOptions: ({ navigation }) => setDefaultHeaderLayout(navigation, 'Popular'),
+      navigationOptions: ({ navigation }) => setDefaultHeaderLayout(navigation, 'Popular Dishes'),
     },
 
     [ROUTE_NAMES.EVENT_DETAILS]: {

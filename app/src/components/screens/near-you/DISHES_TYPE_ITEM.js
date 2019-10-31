@@ -24,10 +24,6 @@ const DISHES_TYPE_ITEM = [
     id: 'Homemade',
   },
   {
-    title: 'Japanese',
-    id: 'Japanese',
-  },
-  {
     title: 'Salads',
     id: 'Salad',
   },

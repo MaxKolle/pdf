@@ -59,13 +59,14 @@ const renderTopRowContent = (stars: number, distance: number): Object => (
 );
 
 const renderBottomRowContent = (
+  fromGoogle: boolean,
   navigation: Function,
   isOpen: boolean,
   id: string,
 ): Object => (
   <BottomRowContentWrapper>
     {renderRestaurantStatus(isOpen)}
-    <TouchableOpacity
+    {!fromGoogle && (<TouchableOpacity
       onPress={() => navigation.navigate(CONSTANTS.ROUTE_RESTAURANT_DETAIL, {
         [CONSTANTS.NAVIGATION_PARAM_ID]: id,
       })
@@ -76,7 +77,7 @@ const renderBottomRowContent = (
         name="arrow-right"
         size={28}
       />
-    </TouchableOpacity>
+    </TouchableOpacity>)}
   </BottomRowContentWrapper>
 );
 
@@ -92,6 +93,7 @@ type Props = {
 const RestaurantItemList = ({
   description,
   navigation,
+  fromGoogle,
   distance,
   isOpen,
   stars,
@@ -127,7 +129,7 @@ const RestaurantItemList = ({
         <RestaurantDescriptionWrapper>
           <RestaurantDescriptionText>{description}</RestaurantDescriptionText>
         </RestaurantDescriptionWrapper>
-        {renderBottomRowContent(navigation, isOpen, id)}
+        {renderBottomRowContent(fromGoogle, navigation, isOpen, id)}
       </Fragment>
     </Card>
   </Container>

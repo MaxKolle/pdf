@@ -5,6 +5,8 @@ const { cpus } = require("os");
 const serverListeners = require("./server-listeners");
 const app = require("../app");
 
+const log = require("../utils/log");
+
 //const numCPUs = cpus().length;
 
 const { onListening, onError } = serverListeners;
@@ -12,7 +14,8 @@ const { PORT } = 3000;
 const server = app.listen(3000);
 
 server.on("KameTcha Server listening", () => onListening(server));
-console.log("KameTcha Server listening");
+
+log("KameTcha Server listening !!!");
 
 server.on("error", err => onError(err, 3000));
 

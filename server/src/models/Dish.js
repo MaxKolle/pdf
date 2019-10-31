@@ -28,7 +28,6 @@ const DishSchema = new mongoose.Schema({
       "Dessert",
       "Fast-Food",
       "Homemade",
-      "Japanese",
       "Pasta",
       "Pizza",
       "Salad",

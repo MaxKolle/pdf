@@ -55,7 +55,6 @@ const RestaurantSchema = new mongoose.Schema({
         "Pasta",
         "Pizza",
         "Dessert",
-        "Japanese",
         "Salad",
         "Seafood"
       ],

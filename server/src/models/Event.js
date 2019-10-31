@@ -33,7 +33,6 @@ const EventSchema = new mongoose.Schema({
         "Dessert",
         "Fast-Food",
         "Homemade",
-        "Japanese",
         "Pasta",
         "Pizza",
         "Salad",

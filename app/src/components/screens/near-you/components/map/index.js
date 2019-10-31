@@ -17,9 +17,9 @@ type Props = {
 class Map extends Component<Props, {}> {
   _markersRefs: any = [];
   _mapRef: any = null;
-  debugger;
+
   componentDidUpdate() {
-    debugger;
+
     const {indexLocationSelected, restaurants} = this.props;
 
     this.animateToLocation(indexLocationSelected, restaurants);
@@ -29,7 +29,7 @@ class Map extends Component<Props, {}> {
     indexLocationSelected: number,
     restaurants: Array<Object>,
   ): void => {
-    debugger;
+
     console.log("map ready");
     if (!restaurants[indexLocationSelected] || restaurants.length === 0) {
       return;
@@ -65,7 +65,7 @@ class Map extends Component<Props, {}> {
         const {location, name, id} = marker;
 
         const iconName = id === 'user-location' ? 'account' : 'map-marker-radius';
-        debugger;
+
         return (
           <Marker
             ref={markerRef => {
@@ -99,7 +99,7 @@ class Map extends Component<Props, {}> {
       userLocation,
       restaurants,
     } = this.props;
-    debugger;
+
 
     const userLocationMarker = ({
       description: "You're here",

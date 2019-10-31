@@ -30,11 +30,6 @@ const items = [
     imageURI: 'homemade',
   },
   {
-    title: 'Japanese',
-    id: 'Japanese',
-    imageURI: 'japanese',
-  },
-  {
     title: 'Salads',
     id: 'Salad',
     imageURI: 'salad',
